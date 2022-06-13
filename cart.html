@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart🆘</title>
+    <style>
+      table {
+        width: 100%;
+      }
+      table tr th td {
+        border-collapse: collapse;
+        border: 1px solid black;
+      }
+      td {
+        height: 30px;
+        padding: 10px;
+      }
+      input {
+        height: 30px;
+        width: 90%;
+        text-align: right;
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <table border="1" style="border: solid 1px black">
+      <tr>
+        <th>No</th>
+        <th>Products</th>
+        <th>Rate</th>
+        <th>Quantity</th>
+        <th>Total</th>
+      </tr>
+
+      <script>
+        let i = 0;
+        for (let i = 0; i < 7; i++) {
+          document.write("<tr>");
+          document.write("<td>" + (i + 1) + "</td>");
+          document.write("<td> Products" + (i + 1) + "</td>");
+          document.write(
+            "<td><input type ='number' autocomplete='off' id='rate_" +
+              i +
+              "'min=1 onkeyup='calculatetotal()' ></td>"
+          );
+          document.write(
+            "<td><input type ='number' autocomplete='off' id='quantity_" +
+              i +
+              "'min=1 onkeyup='calculatetotal()'></td>"
+          );
+          document.write(
+            "<td><input type ='number' readonly id='total_" +
+              i +
+              "'min=1 ></td>"
+          );
+          document.write("</tr>");
+        }
+      </script>
+    </table>
+    <table>
+      <tr>
+        <td style="width: 50%">Subtotal</td>
+        <td style="width: 50%">
+          <input type="number" id="subtotal" readonly />
+        </td>
+      </tr>
+      <tr>
+        <td>GST(18%)</td>
+        <td><input type="number" id="gst" readonly /></td>
+      </tr>
+      <tr>
+        <td>TOTAL</td>
+        <td><input type="number" id="total" readonly /></td>
+      </tr>
+    </table>
+
+    <script>
+      function calculatetotal() {
+        let subtotal = 0;
+        for (let i = 0; i < 7; i++) {
+          let rate = Number(document.getElementById("rate_" + i).value);
+          let quantity = Number(document.getElementById("quantity_" + i).value);
+          let total = rate * quantity;
+          document.getElementById("total_" + i).value = total.toFixed(2);
+          subtotal += total;
+        }
+        document.getElementById("subtotal").value = subtotal.toFixed(2);
+        let gst = (18 / 100) * subtotal;
+        document.getElementById("gst").value = gst.toFixed(2);
+
+        let total = subtotal + gst;
+        document.getElementById("total").value = total.toFixed(2);
+      }
+    </script>
+  </body>
+</html>
